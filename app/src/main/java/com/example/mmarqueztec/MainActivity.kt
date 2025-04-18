@@ -8,12 +8,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.Alignment
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import com.example.mmarqueztec.ui.theme.MmarquezTecTheme
+import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,53 +29,40 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseApp() {
-    val exercises = listOf(
-        Exercise("Flexiones", "💪"),
-        Exercise("Sentadillas", "🏋️"),
-        Exercise("Abdominales", "🤸"),
-        Exercise("Estiramiento", "🧘")
-    )
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Rutina Express") }
             )
-        }
-    ) { padding ->
-        LazyColumn(
-            contentPadding = padding,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            items(exercises) { exercise ->
-                ExerciseCard(exercise)
-                Spacer(modifier = Modifier.height(12.dp))
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                showDialog = true
+            }) {
+                Icon(Icons.Default.PlayArrow, contentDescription = "Iniciar")
             }
         }
+    ) { innerPadding ->
+        LazyColumn(modifier = Modifier.padding(innerPadding)) {
+            items(listOf(
+                "🏋️‍♂️ Press de pecho",
+                "🏃‍♂️ Cardio",
+                "🧘‍♀️ Yoga",
+                "💪 Bíceps"
+            )) { ejercicio ->
+                Text(
+                    text = ejercicio,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+            }
+        }
+
+        // Aquí añadiremos el diálogo en el siguiente commit
     }
 }
 
-@Composable
-fun ExerciseCard(exercise: Exercise) {
-    Card(
-        elevation = CardDefaults.cardElevation(4.dp),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = exercise.icon,
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = exercise.name,
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-    }
-}
