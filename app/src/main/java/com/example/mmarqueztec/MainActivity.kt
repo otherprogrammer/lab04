@@ -62,7 +62,18 @@ fun ExerciseApp() {
             }
         }
 
-        // Aquí añadiremos el diálogo en el siguiente commit
+        // 💬 Diálogo cuando se presiona el botón
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text("¡Rutina iniciada!") },
+                text = { Text("¡Vamos con todo! 💪") },
+                confirmButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text("Listo")
+                    }
+                }
+            )
+        }
     }
 }
-
