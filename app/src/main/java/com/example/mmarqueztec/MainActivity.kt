@@ -14,6 +14,7 @@ import com.example.mmarqueztec.ui.theme.MmarquezTecTheme
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.ui.graphics.Color
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,10 @@ fun ExerciseApp() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Rutina Express") }
+                title = { Text("Rutina Express", color = Color.White) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF0D47A1) // Azul oscuro
+                )
             )
         },
         floatingActionButton = {
@@ -54,15 +58,15 @@ fun ExerciseApp() {
             )) { ejercicio ->
                 Text(
                     text = ejercicio,
-                    fontSize = 20.sp,
+                    fontSize = 22.sp,
+                    color = Color(0xFF1976D2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(20.dp)
                 )
             }
         }
 
-        // 💬 Diálogo cuando se presiona el botón
         if (showDialog) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
