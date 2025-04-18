@@ -57,7 +57,7 @@ fun ExerciseApp() {
                     fontSize = 20.sp,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(40.dp)
+                        .padding(16.dp)
                 )
             }
         }
